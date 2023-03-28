@@ -9,7 +9,7 @@ packer {
 
 variable "version" {
   type    = string
-  default = "1.0.1"
+  default = "1.0.2"
 }
 
 variable "ami_name" {
@@ -72,8 +72,11 @@ Approved Ubuntu 20.04 server image.  Required for corporate deployment
 
   provisioner "shell" {
     inline = [
-      "apt-get update",
-      "apt-get install nginx"
+      "export DEBIAN_FRONTEND=noninteractive",
+      "export NEEDRESTART_MODE=a",
+      "export DEBIAN_PRIORITY=critical",
+      "sudo apt-get -qy update",
+      "sudo apt-get -qy install nginx"
     ]
   }
   sources = [
