@@ -12,7 +12,7 @@ variable "channel" {
   type = string
   description = "HCP Packer Image Channel"
   validation {
-    condition = contains(["Production", "UAT", "latest"], var.environment)
+    condition = contains(["Production", "UAT", "latest"], var.channel)
     error_message = "Valid value is one of the following: Production, UAT, latest."
   }
 }
