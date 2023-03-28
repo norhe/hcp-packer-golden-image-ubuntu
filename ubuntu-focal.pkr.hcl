@@ -9,7 +9,7 @@ packer {
 
 variable "version" {
   type    = string
-  default = "1.0.4"
+  default = "1.0.5"
 }
 
 variable "ami_name" {
@@ -72,6 +72,9 @@ Approved Ubuntu 20.04 server image.  Required for corporate deployment
 
   provisioner "shell" {
     inline = [
+      "echo \"Waiting for cloudinit...\"",
+      "cloud-init status --wait",
+      "echo \"Proceeding with install...\"",
       "echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections",
       "export DEBIAN_FRONTEND=noninteractive",
       "export NEEDRESTART_MODE=a",
