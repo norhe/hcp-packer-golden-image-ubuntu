@@ -25,8 +25,8 @@ resource "aws_instance" "app_server" {
 
   lifecycle {
     postcondition {
-      condition     = self.ami == data.hcp_packer_image.ubuntu.cloud_image_id
-      error_message = "Must use an approved AMI.  Please redeploy, ${data.hcp_packer_image.ubuntu.cloud_image_id}."
+      condition     = self.ami == data.hcp_packer_image.ubuntu_us_east_2.cloud_image_id
+      error_message = "Must use an approved AMI.  Please redeploy, ${data.hcp_packer_image.ubuntu_us_east_2.cloud_image_id}."
     }
   }
 }
