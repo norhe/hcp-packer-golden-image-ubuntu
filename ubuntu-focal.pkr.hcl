@@ -9,7 +9,7 @@ packer {
 
 variable "version" {
   type    = string
-  default = "1.0.0"
+  default = "1.0.1"
 }
 
 variable "ami_name" {
@@ -68,6 +68,13 @@ Approved Ubuntu 20.04 server image.  Required for corporate deployment
       "build-time"   = timestamp()
       "build-source" = basename(path.cwd)
     }
+  }
+
+  provisioner "shell" {
+    inline = [
+      "apt-get update",
+      "apt-get install nginx"
+    ]
   }
   sources = [
     "source.amazon-ebs.basic-example-east",
