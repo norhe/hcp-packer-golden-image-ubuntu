@@ -72,12 +72,14 @@ Approved Ubuntu 20.04 server image.  Required for corporate deployment
 
   provisioner "shell" {
     inline = [
+      "echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections",
       "export DEBIAN_FRONTEND=noninteractive",
       "export NEEDRESTART_MODE=a",
       "export DEBIAN_PRIORITY=critical",
       "sudo apt-get -qy update",
-      "sudo apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade",
-      "sudo apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install nginx"
+      "sudo apt-get -qy install apt-utils -y",
+      "sudo apt-get -qy -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\" upgrade",
+      "sudo apt-get -qy -o \"Dpkg::Options::=--force-confdef\" -o \"Dpkg::Options::=--force-confold\" install nginx"
     ]
   }
   sources = [
