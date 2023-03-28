@@ -12,6 +12,10 @@ variable "version" {
   default = "1.0.0"
 }
 
+variable "ami_name" {
+  default = "Ubuntu__20_04_Golden_Image"
+}
+
 data "amazon-ami" "ubuntu-focal-east" {
   region = "us-east-2"
   filters = {
@@ -27,7 +31,7 @@ source "amazon-ebs" "basic-example-east" {
   instance_type  = "t2.small"
   ssh_username   = "ubuntu"
   ssh_agent_auth = false
-  ami_name       = "packer_AWS_{{timestamp}}_v${var.version}"
+  ami_name       = "${var.ami_name}_{{timestamp}}_v${var.version}"
 }
 
 data "amazon-ami" "ubuntu-focal-west" {
@@ -45,14 +49,14 @@ source "amazon-ebs" "basic-example-west" {
   instance_type  = "t2.small"
   ssh_username   = "ubuntu"
   ssh_agent_auth = false
-  ami_name       = "packer_AWS_{{timestamp}}_v${var.version}"
+  ami_name       = "${var.ami_name}_{{timestamp}}_v${var.version}"
 }
 
 build {
   hcp_packer_registry {
-    bucket_name = "learn-packer-ubuntu"
+    bucket_name = "golden-image-ubuntu-20.04"
     description = <<EOT
-Some nice description about the image being published to HCP Packer Registry.
+Approved Ubuntu 20.04 server image.  Required for corporate deployment
     EOT
     bucket_labels = {
       "owner"          = "platform-team"
