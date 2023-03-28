@@ -22,4 +22,12 @@ resource "aws_instance" "app_server" {
   tags = {
     Name = "Approved 22.04 Image"
   }
+
+  lifecycle {
+    postcondition {
+      condition     = self.ami == data.hcp_packer_image.ubuntu.cloud_image_id
+      error_message = "Must use an approved AMI.  Please redeploy, 
+        ${data.hcp_packer_image.ubuntu.cloud_image_id}."
+    }
+  }
 }
