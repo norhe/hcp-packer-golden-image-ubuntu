@@ -13,7 +13,7 @@ variable "version" {
 }
 
 variable "ami_name" {
-  default = "Ubuntu__20_04_Golden_Image"
+  default = "Ubuntu_20_04_Golden_Image"
 }
 
 data "amazon-ami" "ubuntu-focal-east" {
@@ -54,7 +54,7 @@ source "amazon-ebs" "basic-example-west" {
 
 build {
   hcp_packer_registry {
-    bucket_name = "golden-image-ubuntu-20.04"
+    bucket_name = "golden-image-ubuntu-20-04"
     description = <<EOT
 Approved Ubuntu 20.04 server image.  Required for corporate deployment
     EOT
